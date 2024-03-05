@@ -1,0 +1,133 @@
+@keyframes view-pop-in {
+  from {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+@keyframes view-underlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.c-view__title {
+  display: none;
+}
+
+.c-view--hidden {
+  display: none;
+}
+
+.c-view__close {
+  flex: 0 0 3em;
+  width: 3em;
+  height: 3em;
+  display: none;
+  margin: 0 0 1em auto;
+  border: none;
+  background: none;
+  position: relative;
+  font-size: 1em;
+}
+.c-view__close::before, .c-view__close::after {
+  content: "";
+  width: 0.2em;
+  height: inherit;
+  background: currentColor;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition: transform 300ms ease-out 0.35s;
+}
+.c-view__close::before {
+  transform-origin: top right;
+  transform: rotateZ(-45deg) scaleY(1.35);
+  right: auto;
+}
+.c-view__close::after {
+  transform-origin: top left;
+  transform: rotateZ(45deg) scaleY(1.35);
+  transition-delay: 0.7s;
+  left: auto;
+}
+
+.c-view--pop {
+  display: block;
+}
+.c-view--pop .c-view__overlay {
+  position: fixed;
+  z-index: 15;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.c-view--pop .c-view__underlay, .c-view--pop .c-view__in {
+  opacity: 0;
+}
+.c-view--pop .c-view__underlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  animation: view-underlay-in 0.3s ease-in-out forwards;
+}
+.c-view--pop .c-view__in {
+  font-size: 1rem;
+  background: white;
+  color: black;
+  max-width: 104em;
+  width: 100%;
+  margin: 4em auto;
+  padding: 2em;
+  position: relative;
+  z-index: 1;
+  animation: view-pop-in 0.3s ease-in-out forwards;
+}
+.c-view--pop .c-view__title {
+  display: block;
+  flex: 1 1 100%;
+  font: bold 5em/1 sans-serif;
+  text-align: center;
+  color: black;
+  margin-bottom: 0.25em;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid #ccc;
+}
+.c-view--pop .c-view__group {
+  flex: 1 1 100%;
+}
+.c-view--pop .c-view__close {
+  display: block;
+}
+.c-view--pop .form-title {
+  border-top: 0;
+}
+
+.dtm__in--dv .c-view--pop .form-title__not-available {
+  font-size: 3.5em;
+}
+.dtm__in--dv .c-view--pop .form-title__fill-out {
+  font-size: 2.5em;
+}
+
+.dtm__in--mv .c-view--pop .c-view__in {
+  font-size: 0.75rem;
+}
+
+/*# sourceMappingURL=form.modal.css.map */

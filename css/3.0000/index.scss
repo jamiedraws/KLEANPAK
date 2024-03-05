@@ -1,0 +1,11 @@
+@use "sass:map";
+@use "../interfaces/ui-index";
+@use "../interfaces/ui-leadgen";
+@use "../models/fonts";
+
+.c-brand--form {
+    & &__headline {
+        text-transform: uppercase;
+        font-family: map.get(fonts.$list, second);
+    }
+}

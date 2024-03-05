@@ -1,0 +1,25 @@
+@use "sass:map";
+
+$list: (
+    first: titling-gothic-fb-compressed,
+    second: proxima-nova,
+    third: proxima-nova-extra-condensed
+);
+
+$-size: 1rem;
+$-line-height: 1;
+
+@mixin first ($size: $-size, $line-height: $-line-height) {
+    font: #{$size}/#{$line-height} map.get($list, first), sans-serif;
+    @content;
+}
+
+@mixin second ($size: $-size, $line-height: $-line-height) {
+    font: #{$size}/#{$line-height} map.get($list, second), sans-serif;
+    @content;
+}
+
+@mixin third ($size: $-size, $line-height: $-line-height) {
+    font: #{$size}/#{$line-height} map.get($list, third), sans-serif;
+    @content;
+}

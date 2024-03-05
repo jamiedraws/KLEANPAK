@@ -1,0 +1,715 @@
+@use "../../Shared/css/template/dtm/utils/scope";
+@use "../../Shared/css/template/dtm/utils/arp";
+@use "../../Shared/css/template/dtm/components/button";
+@use "../models/colors";
+@use "../models/fonts";
+@use "ui-header" as header;
+
+$min-layout: 1100px;
+$max-layout: 1040px;
+
+$nav-offset: 55px;
+
+$-form-border-color: #bdbdbd;
+
+@mixin form-legend {
+    background: colors.get(third);
+    padding: 1.25rem;
+}
+
+@mixin form-fieldset {
+    background: white;
+    border: 1px solid $-form-border-color;
+}
+
+@mixin form-headline {
+    @include fonts.second(2rem) {
+        text-transform: uppercase;
+    };
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    @supports (display: flex) {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@include scope.for-template {
+    background: colors.get(sixth);
+    
+    @include fonts.second(18px, 1.4) {
+        font-weight: 400;
+
+        @media all and (max-width: 500px) {
+            font-size: 16px;
+        }
+    };
+}
+
+p {
+    line-height: 1.45;
+    margin: 1em 0;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+h2 {
+    @include fonts.first(2.8em, 1.2);
+    color: colors.get(first);
+    margin: 0.25em 0;
+}
+
+h3 {
+    @include fonts.first(2.8em, 1);
+    color: colors.get(second);
+}
+
+ul, ol {
+    margin-left: 1.5em;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    width: auto;
+}
+
+iframe,
+picture {
+    display: block;
+}
+
+figure {
+    margin: 0;
+}
+
+@include arp.init;
+@include arp.defer;
+
+@include header.nav;
+
+@include scope.for-desktop {
+    .nav {
+        &__group {
+            min-width: #{$min-layout};
+        }
+    
+        &__list {
+            max-width: #{$max-layout};
+            margin: auto;
+        }
+    }
+}
+
+.view {
+    background: colors.get(sixth);
+
+    &--section {
+        position: relative;
+    }
+
+    &__anchor {
+        position: absolute;
+        top: -#{$nav-offset};
+    }
+
+    &__in {
+        max-width:#{$max-layout};
+        margin: auto;
+        padding: 2em 1em;
+        position: relative;
+    }
+
+    &--header {
+        z-index: 2;
+        background: colors.get(_white);
+    }
+
+    &--nav {
+        background: colors.get(second);
+        color: colors.get(_white);
+    }
+
+    &--form &__in {
+        padding: 0 0 2em;
+    }
+
+    &--footer {
+        flex: 1 1 auto;
+        @include fonts.second(1.4rem, 1.45);
+        text-align: center;
+        color: colors.get(_white);
+        background: colors.get(third);
+
+        form {
+            display: none;
+        }
+    }
+}
+
+@include scope.for-desktop {
+    .view, .l-outer {
+        min-width: #{$min-layout};
+    }
+
+    .l-outer {
+        position: relative;
+        z-index: 2;
+    }
+
+    .l-outer__in {
+        max-width: #{$max-layout};
+    }
+}
+
+@include scope.for-mobile (".dtm__in--mv", ".dtm") {
+    .view {
+        &--footer {
+            .c-list--nav {
+                background: white;
+                color: black;
+                display: block;
+                border-radius: 0.25em;
+                overflow: hidden;
+                padding: 0;
+                text-align: left;
+
+                li {
+                    padding: 0;
+                    border-bottom: 1px solid;
+                    border-right: none;
+                    border-color: #ccc;
+                    display: block;
+                }
+
+                a {
+                    padding: 1em;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    transition: background .3s ease-in-out;
+                    text-decoration: none;
+
+                    &::after {
+                        content: "\e919";
+                        font-family: 'Icomoon';
+                        display: block;
+                    }
+
+                    &:hover,
+                    &:focus {
+                        background: #ededed;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include scope.for-template {
+    @include button.model {
+        & {
+            border-radius: .2em;
+            padding: .75em;
+            overflow: hidden;
+            @include fonts.second(1em, .9) {
+                text-transform: uppercase;
+            };
+        }
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+        }
+
+        &::before {
+            background: linear-gradient(#0061b9, #004395);
+        }
+
+        &::after {
+            background: linear-gradient(#004395, #0061b9);
+        }
+
+        &--order {
+            &::before {
+                background: linear-gradient(#e02121, #ab192d);
+            }
+
+            &::after {
+                background: linear-gradient(#ab192d, #e02121);
+            }
+        }
+    };
+};
+
+.copy {
+    p ~ h3 {
+        margin-top: 2em;
+    }
+
+    h3 {
+        color: colors.get(third);
+        @include fonts.first(1.6em, 1.3) {
+            font-weight: normal;
+        };
+    }
+
+    figcaption p {
+        font-size: .9em;
+    }
+}
+
+@include scope.for-mobile {
+    .copy {
+        font-size: 4vmin;
+
+        h2 {
+            font-size: 2.5em;
+        }
+    }
+}
+
+@include scope.for-template {
+    .fancybox-slide {
+        h1 {
+            font-size: 1.5em;
+        }
+
+        #policyContent,
+        .policy-body {
+            max-width: 1100px;
+        }
+    }
+}
+
+.offer {
+    display: inline-block;
+    @include fonts.third(.6em, 1);
+    color: colors.get(second);
+    position: relative;
+
+    &__txt {
+        text-transform: capitalize;
+        font-size: 2.4em;
+    }
+
+    &__price {
+        font-weight: 900;
+        font-size: 3.5em;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        margin-bottom: -.15em;
+    }
+
+    &__disclaimer {
+        line-height: 1;
+        display: block;
+        text-align: center;
+        font-size: 1.8em;
+        font-style: italic;
+    }
+
+    &__amt {
+        font-size: 2em;
+    }
+
+    &__currency,
+    &__cent {
+        font-size: inherit;
+        line-height: 1.4;
+    }
+}
+
+.group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &__row {
+        flex: 1 1 100%;
+
+        &:not(:last-of-type) {
+            margin-bottom: 2em;
+        }
+    }
+
+    &--form {
+        border-bottom: 1px solid $-form-border-color;
+    }
+
+    &--form-product {
+        justify-content: center;
+        align-items: center;
+
+        .picture {
+            flex: 0 1 243px;
+            //margin: 1rem;
+        }
+
+        .offer {
+            margin: 2rem;
+        }
+    }
+}
+
+@include arp.apply(".picture--form-product > .picture__img", 243/208, 243px) {
+    background: none;
+};
+
+.form-title {
+    text-align: center;
+    border-top: 5px solid #dadada;
+    padding: 2em 0;
+
+    &__not-available {
+        color: colors.get(first);
+        @include fonts.first(3.1em) {
+            letter-spacing: 1px;
+            font-weight: 500;
+        };
+        display: block;
+        margin-bottom: .15em;
+    }
+    
+    &__fill-out {
+        color: colors.get(fourth);
+        @include fonts.second(1.4em) {
+            font-weight: 500;
+        };
+    }
+    
+    &__fill-out strong {
+        color: colors.get(third);
+        font-weight: 700;
+    }
+}
+
+@include scope.for-mobile {
+    .form-title {
+        font-size: 1.75vmax;
+    }
+}
+
+#dtm {
+    .c-brand--table {
+        th,
+        &__th {
+            background: #5a5a5a;
+        }
+    }
+}
+
+@include scope.for-desktop {
+    .reviewTableBody {
+        td[data-cart-code^="SHIPPING"] {
+            opacity: 0;
+        }
+    
+        tr:nth-child(2) td {
+            &:not(:first-child) {
+                border-left: 0;
+            }
+    
+            &:not(:last-child) {
+                border-right: 0;
+            }
+        }
+    }
+}
+
+@include scope.for-mobile {
+    @media all and (max-width: 47.5em), (max-device-width: 64em) and (min-device-width: 48em) {
+        .reviewTableBody {
+            td[data-cart-code^="SHIPPING"] {
+                display: none;
+            }
+        }
+
+        .c-brand--table {
+            tbody td {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-left: 1rem;
+
+                &:first-of-type {
+                    background: #5a5a5a;
+                }
+
+                &::before {
+                    position: relative;
+                    max-height: none;
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}
+
+.c-brand--form {
+    &__legend {
+        @include form-legend;
+    }
+
+    &__fieldset {
+        @include form-fieldset;
+    }
+
+    &__headline {
+        @include form-headline;
+    }
+
+    .button {
+        font-size: 2rem;
+    }
+}
+
+@include scope.for-template {
+    .c-brand--form {
+        &__item {
+            display: flex;
+            flex-wrap: wrap;
+    
+            &:not(:last-child) {
+                margin-bottom: .5rem;
+            }
+    
+            > * {
+                display: flex;
+                flex: 1;
+            }
+        }
+
+
+        .checkout-option {
+            padding-left: 0;
+            text-align: left;
+            flex: 1 1 100%;
+        }
+    }
+}
+
+@include scope.for-desktop {
+    .c-brand--form {
+        &__label,
+        &__cc--label {
+            flex: 0 0 8.5em;
+            text-align: right;
+            justify-content: flex-end;
+        }
+    }
+}
+
+@include scope.for-mobile {
+    .c-brand--form {
+        &__legend {
+            padding: 1rem 2rem;
+        }
+        
+        &__item {
+            flex-direction: column;
+        }
+
+        &__headline {
+            font-size: 1.8rem;
+        }
+
+        .l-disclaimer {
+            margin: 2rem;
+            width: auto;
+        }
+    }
+
+    .view--form {
+        [class*="c-brand"] {
+            font-size: 1.65rem;
+
+            p {
+                font-size: inherit;
+            }
+        }
+    }
+}
+
+.form {
+    position: relative;
+
+    &__item {
+        flex: 1 1 480px;
+        margin-bottom: 2.5rem;
+    }
+
+    &__scroll {
+        position: sticky;
+        top: $nav-offset;
+    }
+
+    &__fieldset {
+        @include form-fieldset;
+    }
+
+    &__group {
+        padding: 2rem;
+        font-size: 1.2rem;
+    }
+
+    fieldset:not(:last-child) {
+        margin-bottom: 2rem;
+    }
+
+    &__field {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 1;
+
+        > input,
+        > select,
+        > .fld {
+            flex: 1;
+        }
+    }
+
+    &__label {
+        text-align: right;
+    }
+
+    &__list {
+        margin: 0;
+    }
+
+    &__copy {
+        flex: 0 1 30em;
+    }
+}
+
+@include scope.for-mobile {
+    .form {
+        &__copy {
+            flex: 1;
+        }
+    }
+}
+
+@include scope.for-template {
+    .form {
+        &__field {
+            &--block {
+                > label {
+                    flex: 1 1 100%;
+                    text-align: left;
+                }
+            }
+        }
+    }
+}
+
+@include scope.for-desktop {
+    .form {
+        &__item {
+            &:not(:first-child) {
+                margin-left: 2.5rem;
+            }
+        }
+
+        &__field {
+            &--block {
+                &:not(:first-child):not(:last-child) {
+                    //margin: 2rem;
+                }
+            }
+        }
+    }
+}
+
+@include scope.for-mobile {
+    .form {
+        &__field {
+            > label {
+                flex: 1 1 100%;
+                text-align: left;
+            }
+
+            &--block {
+                flex: 1 1 100%;
+            }
+        }
+
+        &__item {
+            flex: 1 1 100%;
+        }
+
+        &__review {
+            order: -1;
+        }
+    }
+}
+
+.element {
+    &--is-fixed {
+        position: fixed;
+        top: 0;
+    }
+
+    &--is-absolute {
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+#reviewOrder {
+    &.element {
+        &--is-fixed,
+        &--is-absolute {
+            width: 507px;
+        }
+        
+        &--is-fixed {
+            top: 55px;
+        }
+
+        &--is-absolute {
+            bottom: 25px;
+        }
+    }
+}
+
+.group {
+    &--form {
+        position: relative;
+    }
+}
+
+@include scope.for-desktop {
+    .group {
+        &--inline-form {
+            justify-content: flex-start;
+            margin: -1em;
+    
+            .form__field {
+                flex: 1 1 24em;
+                margin: 1em;
+            }
+        }
+    }
+}
+
+.c-view {
+    &__close {
+        display: none;
+    }
+}

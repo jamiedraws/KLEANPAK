@@ -1,0 +1,560 @@
+@use "../../Shared/css/template/dtm/utils/scope";
+@use "../../Shared/css/template/dtm/utils/text";
+@use "../../Shared/css/template/dtm/utils/arp";
+@use "../../Shared/css/template/dtm/utils/vendor-rules" as prefix;
+@use "../interfaces/ui-page" as page;
+@use "../models/colors";
+@use "../models/fonts";
+
+
+$-device-width: 600px;
+
+@mixin box-frame {
+    border: .3rem solid white;
+    box-shadow: 0 0.15em 0.15em rgba(0, 0, 0, 0.25);
+}
+
+.view {
+    &--main &__in {
+        padding: 1em;
+    }
+
+    &--contrast {
+        background: linear-gradient(#003790, #005db7, #003790);
+        color: colors.get(_white);
+        text-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.61);
+
+        h2 {
+            color: currentColor;
+        }
+    }
+
+    &__bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__span {
+        width: 100%;
+    }
+}
+
+.group {
+    &--offer {
+        max-width: 980px;
+        margin: auto;
+        align-items: flex-end;
+    }
+
+    &--nav {
+        margin: -0.5em;
+
+        > .button {
+            flex: 1 1 auto;
+            margin: 0.5em;
+        }
+    }
+
+    &--offer > &__row {
+        margin: 2em 0;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &--product {
+        flex: 1;
+        justify-content: center;
+        align-items: flex-end;
+
+        > picture {
+            flex: 1 1 auto;
+        }
+    }
+
+    &--price {
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &--payment {
+        justify-content: center;
+
+        .button {
+            margin: 1em 0;
+        }
+
+        > em {
+            margin-top: 1em;
+
+            @include fonts.third(1.1em, 1) {
+                text-transform: uppercase;
+                text-align: center;
+                font-style: italic;
+                @include text.wrap;
+            };
+        }
+    }
+}
+
+@include scope.for-mobile {
+    .group {
+        &--product {
+            > picture {
+                flex: 1.4;
+            }
+        }
+
+        &--offer {
+            .group__row {
+                margin: 1em -1em;
+            }
+
+            .group--article {
+                padding: 1em;
+            }
+        }
+    }
+}
+
+@include scope.for-portrait {
+    .group {
+        justify-content: center;
+
+        .button {
+            flex: 1 1 100%;
+            margin-bottom: 1em;
+            display: block;
+        }
+
+        &--price {
+            font-size: 3.5vmin;
+        }
+    }
+}
+
+@include scope.for-landscape {
+    .group {
+        justify-content: space-around;
+
+        &--nav {
+            .button {
+                flex: 1;
+    
+                &:not(:first-child):not(:last-child) {
+                    margin: 0 1em;
+                }
+            }
+        }
+
+        &--article {
+            justify-content: flex-start;
+        }
+
+        &--product {
+            > picture {
+                flex: .4;
+            }
+        }
+
+        &--price {
+            font-size: 2.5vmax;
+
+            > .offer {
+                flex: 1;
+                font-size: .9em;
+            }
+
+            > .group--payment {
+                flex: .6;
+            }
+        }
+    }
+}
+
+.copy {
+    text-align: center;
+
+    &--article {
+        h2 {
+            font-size: 2.25em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    &__alert {
+        display: inline-block;
+        background: colors.get(first);
+        padding: 0.25em 0.5em;
+        font-size: 1.25em;
+        margin: 0.3em 0;
+        text-shadow: none;
+        @include box-frame;
+    }
+
+    strong {
+        font-weight: 800;
+    }
+
+    &__article {
+        text-align: left;
+        flex: 1 1 1em;
+    }
+}
+
+@include scope.for-mobile {
+    .copy {
+        &--article {
+            h2 {
+                font-size: 1.75em;
+            }
+        }
+
+        &__article {
+            flex-basis: 100%;
+            order: 1;
+        }
+    }
+}
+
+.picture {
+    &__img {
+        background: #252525;
+    }
+
+    &--banner + &--article {
+        margin: 0 0 2em;
+    }
+
+    &--square {
+        flex: 0 0 307px;
+        margin-bottom: 2em;
+    }
+
+    &--square &__img,
+    &--article &__img {
+        border: .4em double colors.get(third);
+        background: white;
+    }
+
+    &--square &__caption {
+        margin-top: .75em;
+
+        h3 + p {
+            margin-top: .25em;
+        }
+    }
+
+    &--portrait {
+        flex: 0 0 365px;
+        position: relative;
+    }
+
+    &--portrait &__img {
+        @include box-frame;
+        margin-bottom: 2em;
+
+        &:nth-child(2) {
+            position: absolute;
+            top: 25%;
+            right: 0;
+            z-index: 2;
+        }
+    }
+
+    &--gallery {
+        justify-content: center;
+        align-items: stretch;
+    }
+
+    &--gallery &__img {
+        @include box-frame;
+        box-shadow: none;
+    }
+}
+
+@include arp.apply(".picture--gallery > .picture__img", 266/501);
+@include arp.apply(".picture--gallery > .picture__img--alt", 302/501);
+
+@include arp.apply(".picture--square > picture", 307/254);
+@include arp.apply(".picture--portrait > picture", 408/443, 211px);
+@include arp.apply(".group--product > picture", 291/336, 291px);
+@include arp.apply(".picture--article > .picture__img", 456/196, 456px);
+
+@include arp.apply(".picture--banner > picture", 980/119, 980px) {
+    &::before {
+        @include scope.max($-device-width, false, false) {
+            @include arp.ratio(700/243);
+        }
+    }
+};
+
+@include scope.for-desktop {
+    .picture {
+        &--portrait {
+            margin-left: 2em;
+        }
+
+        &--gallery {
+            overflow: hidden;
+
+            ~ .slide__nav {
+                display: none;
+            }
+        }
+    }
+}
+
+@include scope.for-portrait {
+    .view {
+        &--main {
+            .view__in {
+                padding-top: 0;
+                margin-top: -1em;
+            }
+        }
+
+        &--photo {
+            @include prefix.vendor-rule(clip-path, polygon(0% 0%, 100% 0%, 100% 90%, 50% 95%, 0% 90%));
+        }
+    }
+
+    .picture {
+        &--portrait {
+            flex: 1;
+        }
+
+        &--gallery {
+            justify-content: flex-start;
+
+            > picture {
+                flex: 1 0 50%;
+                scroll-snap-align: start;
+            }
+        }
+    }
+}
+
+@include scope.for-landscape {
+    .picture {
+        &--gallery {
+            overflow: hidden; 
+
+            ~ .slide__nav {
+                display: none;
+            }
+        }
+    }
+}
+
+@include scope.min(600px) {
+    .picture {
+        &--portrait {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-around;
+        }
+
+        &--portrait .picture__img {
+            flex: 1;
+
+            &:nth-child(2) {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 0 1em;
+            }
+        }
+    }
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    display: flex;
+    flex-direction: column;
+
+    &__item {
+        display: block;
+        padding: 0;
+
+        &:nth-child(even) {
+            .list__bar::before {
+                background: #003c93;
+                opacity: .6;
+                mix-blend-mode: multiply;
+            }
+        }
+    }
+
+    &__bar {
+        display: inline-block;
+        padding: .8em;
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+
+    &__bar__text {
+        position: relative;
+    }
+}
+
+.media {
+    flex: 0 1 445px;
+
+    nav {
+        display: flex;
+        margin: 0.25em -0.25em 0; 
+        font-size: .75em;
+        
+        .button {
+            flex: 1;
+            margin: 0.25em;
+            line-height: 1.2;
+
+            &:nth-child(1) {
+                flex-grow: 1.3;
+            }
+        }
+    }
+}
+
+@include arp.apply(".media__video", 445/250, 445px);
+
+@include scope.for-mobile {
+    .media {
+        order: 1;
+        flex: 1;
+
+        &__video {
+            max-width: none;
+        }
+    }
+}
+
+@include scope.for-template {
+    .payment {
+        font-size: .6em;
+        width: 18em;
+    }
+}
+
+$-slide: ".slide";
+
+#{$-slide} {
+    position: relative;
+
+    &__into {
+        z-index: 1;
+    }
+
+    &__nav {
+        button {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            height: 2em;
+            width: 1.5em;
+            z-index: 1;
+            border: none;
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0.15em 0.15em rgba(0, 0, 0, 0.5);
+            padding: 0.05em;
+            font-size: 2em;
+            color: #d3d3d3;
+            transition: 
+                background 100ms linear, 
+                color 100ms linear, 
+                opacity .3s ease-in-out,
+                transform .3s ease-in-out;
+
+            opacity: 0;
+
+            &:first-child {
+                left: 0;
+                transform: translateX(100%);
+            }
+
+            &:last-child {
+                right: 0;
+                transform: translateX(-100%);
+            }
+
+            &:hover,
+            &:focus {
+                background: rgba(211, 211, 211, 0.6);
+                color: white;
+            }
+        }
+    }
+
+    &--is-ready &__nav {
+        button {
+            transform: translate(0);
+            opacity: 1;
+        }
+    }
+}
+
+.article {
+    align-items: flex-start;
+    margin: 1em 0 2em;
+
+    &__img {
+        margin-right: 1em;
+        flex: 0 1 456px;
+    }
+}
+
+@include scope.for-desktop {
+    .article {
+        h2 {
+            margin-top: 0;
+        }
+    }
+}
+
+.csstransitions {
+    .view__in {
+        > .copy {
+            transform: translateY(10%);
+            opacity: 0;
+            transition: 
+                opacity .75s ease-out,
+                transform .75s cubic-bezier(0, 0, 0, 1);
+        }
+    }
+}
+
+.view--has-intersected {
+    .view__in {
+        > .copy {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}

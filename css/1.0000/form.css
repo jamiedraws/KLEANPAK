@@ -1,0 +1,61 @@
+.c-brand--form__fieldset {
+    background: white;
+}
+
+.dtm .c-brand--form__legend {
+    background: #0055a9;
+    padding: 1.25rem;
+}
+
+.dtm .c-brand--form .c-brand--form__headline {
+    text-transform: uppercase;
+    font-family: proxima-nova, sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+#referralInformation .c-brand--form__list {
+    display: flex;
+}
+
+#referralInformation .c-brand--form__list li {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem 2rem;
+}
+
+#referralInformation .c-brand--form__list li > * {
+    flex: 0 1 100%;
+    text-align: left;
+}
+
+#referralInformation .c-brand--form__list li label {
+    margin: 0 0 0.7rem;
+}
+
+.dtm .dtm__in--dv .qty__copy {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+}
+
+#calltoAction {
+    background: none;
+}
+
+.l-disclaimer {
+    background: white;
+}
+
+@media all and (max-width: 900px) {
+    #form form > .row .col {
+        display: block;
+        width: 100%;
+        padding: 0;
+    }
+    #referralInformation .c-brand--form__list {
+        flex-wrap: wrap;
+    }
+    #referralInformation .c-brand--form__list li {
+        margin: 1rem 0;
+    }
+}

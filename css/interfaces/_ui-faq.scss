@@ -1,0 +1,13 @@
+@use "../../Shared/css/template/dtm/utils/scope";
+@use "../../Shared/css/template/dtm/components/card";
+@use "../models/colors";
+
+@include card.model(".card", colors.get(first));
+
+@include scope.for-mobile {
+    .card {
+        &__title {
+            font-size: 1.2em;
+        }
+    }
+}

@@ -1,0 +1,40 @@
+$-view: ".c-view";
+$-view-popup: "#{$-view}--pop";
+
+@use "../Shared/css/template/webinar/components/view" with (
+    $select: $-view
+); 
+
+@use "../shared/css/template/dtm/utils/scope";
+
+// view
+@include view.ui;
+@include view.is-hidden;
+@include view.close-button;
+@include view.pop {
+    .form-title {
+        border-top: 0;
+    }
+};
+
+@include scope.for-desktop {
+    #{$-view-popup} {
+        .form-title {
+            &__not-available {
+                font-size: 3.5em;
+            }
+
+            &__fill-out {
+                font-size: 2.5em;
+            }
+        }
+    }
+}
+
+@include scope.for-mobile {
+    #{$-view-popup} {
+        #{$-view}__in {
+            font-size: .75rem;
+        }
+    }
+}

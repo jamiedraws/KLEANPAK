@@ -1,0 +1,20 @@
+@use "ui-page" as page;
+@use "../models/colors";
+
+.copy {
+    h2 {
+        margin: 0.5em 0;
+    }
+
+    h3 + p {
+        margin-top: 0.5em;
+    }
+
+    picture:first-child {
+        margin: auto auto 1em;
+    }
+
+    &:not(:last-child) {
+        padding-bottom: 2em;
+    }
+}

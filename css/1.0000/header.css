@@ -1,0 +1,68 @@
+@-webkit-keyframes toggle-visibility {
+  from {
+    visibility: visible;
+    pointer-events: none;
+  }
+  to {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+@keyframes toggle-visibility {
+  from {
+    visibility: visible;
+    pointer-events: none;
+  }
+  to {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+.header {
+  font-size: 1rem;
+}
+.header__group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font: 2.8em/1.3 titling-gothic-fb-compressed, sans-serif;
+  color: #222222;
+  text-align: center;
+}
+.title > span {
+  display: block;
+}
+.title strong {
+  font-size: 1.3em;
+  font-weight: normal;
+  color: #d52929;
+}
+
+.dtm__in--dv .header__logo {
+  flex: 0 0 235px;
+}
+.dtm__in--dv .title {
+  letter-spacing: 1.5px;
+}
+
+.dtm__in--mv .header {
+  font-size: 0.35em;
+  padding: 1em;
+}
+.dtm__in--mv .header__logo {
+  flex: 0 1 10em;
+}
+.dtm__in--mv .header__title {
+  text-align: left;
+}
+
+@media all and (orientation: landscape) {
+  .dtm__in--mv .header {
+    font-size: 1.5vmax;
+  }
+}
+
+/*# sourceMappingURL=header.css.map */
